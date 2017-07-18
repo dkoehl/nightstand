@@ -1,56 +1,25 @@
 <?php
 
-class sbahnTicker {
+class sbahnTicker
+{
 
-    /**
-     * @var array
-     */
-    var $sbahnTickerArray = [];
-    /**
-     * @var string
-     */
-    var $sbahnreportpage = '';
-    /**
-     * @var string
-     */
-    var $sbahnDoc = '';
-    /**
-     * @var string
-     */
-    var $reportHeadlines = '';
-    /**
-     * @var string
-     */
-    var $reportContents = '';
-    /**
-     * @var string
-     */
-    var $reportTracks = '';
+    const DATATICKER = 'https://img.srv2.de/customer/sbahnMuenchen/newsticker/newsticker.html';
 
     /**
      * @return array
      */
-    function init() {
-        $sbahnreportpage = file_get_contents('https://img.srv2.de/customer/sbahnMuenchen/newsticker/newsticker.html');
-//        $sbahnreportpage = file_get_contents('/Applications/MAMP/htdocs/nightstand/ticker.html?'.time());
-
-
-
-
+    function init()
+    {
+        $sbahnreportpage = @file_get_contents(self::DATATICKER);
 
         $sbahnDoc = new DOMDocument();
         libxml_use_internal_errors(true);
         $sbahnDoc->loadHTML(trim($sbahnreportpage));
-
-//        hiddenPage
-
-
         /**
          * Makes Array out of headlines
          */
         $reportHeadlines = $sbahnDoc->getElementsByTagName('h1');
         foreach ($reportHeadlines as $item) {
-
             $headlineArray[] = $item->nodeValue;
         }
         /**
@@ -60,7 +29,6 @@ class sbahnTicker {
         foreach ($reportContents as $oDomNode) {
             $contentArray[] = explode("\r\r\r", $oDomNode->nodeValue);
         }
-
         /**
          * gets tracks
          */
@@ -73,14 +41,14 @@ class sbahnTicker {
          * Builds final array
          */
         for ($i = 0; $i < count($contentArray); $i++) {
-            if(!empty($headlineArray[$i])){
+            if (!empty($headlineArray[$i])) {
                 $sbahnTickerArray[] = [
                     'headline' => trim($headlineArray[$i]),
                     'description' => trim($contentArray[$i][0]),
                     'tracks' => strip_tags($trackArray[$i])
                 ];
-            }else{
-                if(!empty($contentArray[$i][0])){
+            } else {
+                if (!empty($contentArray[$i][0])) {
                     $sbahnTickerArray[] = [
                         'headline' => $contentArray[$i][0]
                     ];

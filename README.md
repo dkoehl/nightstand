@@ -38,3 +38,7 @@ Some local weather images, for an overview of the actual weather situation. The 
 ### Weather values
 The local weather in numbers and graphs
 ![WeatherValue-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/weathervalue_view.png)
+
+
+## Requirements
+All you need is a Webserver(Apache, Nginx, ISS, etc..) with PHP5.6+

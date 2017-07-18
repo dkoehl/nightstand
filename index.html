@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>nightStand</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="fancy as fuck">
+    <meta name="author" content="@pmnewmedia">
+    <meta http-equiv="pragma" content="no-cache"/>
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/icon.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/icon.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/icon.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="images/icon.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="images/icon.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="images/icon.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="images/icon.png" />
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="bgVideo"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="alarm">
+                <div class="alarmclock">
+                    <div class="datum"></div>
+                    <div class="uhrzeit"></div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id="weather">
+                <div class="forcast"></div>
+                <!-- Modal -->
+                <div class="modal fade" id="webcamModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        CLOSE
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <img src="####" class="img-responsive img-rounded" id="webcamimage_east" data-refresh=""/>
+                                <br />
+                                <img src="####" class="img-responsive img-rounded" id="webcamimage_west" data-refresh=""/>
+                                <br />
+                                <img src="####" class="img-responsive img-rounded" id="webcamimage_north" data-refresh=""/>
+                                <br />
+                                <img src="####" class="img-responsive img-rounded" id="webcamimage_south" data-refresh=""/>
+                                <br />
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <div class="refreshCounter" style="color:#000;"></div>
+                                </button>
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="modal fade" id="weatherModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    CLOSE
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-sm-6">
+                                <img src="####" class="img-responsive img-rounded" id="weatherModalTemperatur" data-refresh=""/>
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="####" class="img-responsive img-rounded" id="weatherModalBarometer" data-refresh=""/>
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="####" class="img-responsive img-rounded" id="weatherModalRadiation" data-refresh=""/>
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="####" class="img-responsive img-rounded" id="weatherModalUV" data-refresh=""/>
+                            </div>
+                            <hr />
+                            END
+                            <br />
+
+
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <div class="refreshCounter" style="color:#000;"></div>
+                            </button>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1" id="actionbuttons">
+                <button type="button" class="btn btn-primary btn-lg" id="refreshButton">
+                    <span class="glyphicon glyphicon-refresh"></span>
+                </button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#webcamModal" id="launchwebcamimages">
+                    <span class="glyphicon glyphicon-picture"></span>
+                </button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#weatherModal" id="launchweather">
+                    <span class="glyphicon glyphicon-cloud"></span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="feed">
+                <div class="feedcontent">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="list-group" id="sbahncontainer">
+                            <a href="#" class="list-group-item">
+                                <img src="images/sbahnlogo.svg" class="img-responsive"/>
+                            </a>
+
+                            <div id="sbahnliveticker"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        <div class="list-group" id="ubahncontainer">
+                            <a href="#" class="list-group-item">
+                                <img src="images/ubahnlogo.png" class="img-responsive"/>
+                            </a>
+
+                            <div id="ubahnliveticker"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script src="js/custom.js"></script>
+</body>
+</html>

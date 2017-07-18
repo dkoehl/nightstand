@@ -13,9 +13,9 @@ This is a project for raspberry pi with 7" touch display.
 * Works only with munich local weather
 * Weather data from: `http://query.yahooapis.com/`
 
-### Frontend Framework
+## Frontend Framework
 * Frontend is build fully responsive with twitters bootstrap 3 framework
 
 
-### Contact
+## Contact
 for more infos contact me: `@pmnewmedia`

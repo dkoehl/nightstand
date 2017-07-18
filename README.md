@@ -19,3 +19,5 @@ This is a project for raspberry pi with 7" touch display.
 
 ## Contact
 for more infos contact me: `@pmnewmedia`
+
+

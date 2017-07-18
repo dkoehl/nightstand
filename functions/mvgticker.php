@@ -20,9 +20,7 @@ class mvgTicker
      */
     var $mvgTickerData = '';
 
-
     const DATATICKER = 'https://ticker.mvg.de/';
-
 
     /**
      * Gets XML Data from external API
@@ -43,9 +41,7 @@ class mvgTicker
         }
         return json_encode($mvgDataArray, JSON_UNESCAPED_UNICODE);
     }
-
 }
-
 header('Content-Type: application/json');
 $mvgTickerData = new mvgTicker();
 echo $mvgTickerData->init();

@@ -32,8 +32,7 @@ This view is if there is some trouble on the munich sbahn (nealy every day^^)
 ![SbahnMessage-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/message_view.png)
 
 ### Weather Image 
-Some local weather images, for an overview of the actual weather situation
-- `the images are taken from official and free webcams`
+Some local weather images, for an overview of the actual weather situation. The images are taken from official and free webcams
 ![WeatherImage-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/weatherimage_view.png)
 
 ### Weather values

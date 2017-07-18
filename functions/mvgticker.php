@@ -1,8 +1,8 @@
 <?php
 
 
-class mvgTicker{
-
+class mvgTicker
+{
     /**
      * @var string
      */
@@ -20,11 +20,17 @@ class mvgTicker{
      */
     var $mvgTickerData = '';
 
+
+    const DATATICKER = 'https://ticker.mvg.de/';
+
+
     /**
+     * Gets XML Data from external API
      * @return string JSON
      */
-    function init(){
-        $mvgreportpage = file_get_contents('https://ticker.mvg.de/');
+    function init()
+    {
+        $mvgreportpage = file_get_contents(self::DATATICKER);
         $mvgXmlDoc = new SimpleXMLElement($mvgreportpage);
 
         foreach ($mvgXmlDoc->channel->item as $item) {
@@ -41,6 +47,5 @@ class mvgTicker{
 }
 
 header('Content-Type: application/json');
-
 $mvgTickerData = new mvgTicker();
 echo $mvgTickerData->init();

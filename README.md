@@ -21,3 +21,7 @@ This is a project for raspberry pi with 7" touch display.
 for more infos contact me: `@pmnewmedia`
 
 
+![Default-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/default_view.png)
+![SbahnMessage-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/message_view.png)
+![WeatherImage-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/weatherimage_view.png)
+![WeatherValue-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/weathervalue_view.png)

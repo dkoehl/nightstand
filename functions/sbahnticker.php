@@ -1,12 +1,14 @@
 <?php
 
+/**
+ * Class sbahnTicker
+ */
 class sbahnTicker
 {
-
     const DATATICKER = 'https://img.srv2.de/customer/sbahnMuenchen/newsticker/newsticker.html';
-
     /**
-     * @return array
+     * Gets Sbahn Data from external Website
+     * @return string
      */
     function init()
     {

@@ -9,7 +9,6 @@ namespace Pixelmatic\Ticker;
  */
 class MvgTicker
 {
-
     const UBAHNDATAURL = 'https://ticker.mvg.de/';
 
 
@@ -52,7 +51,7 @@ class MvgTicker
     public static function getTracks($trackString)
     {
         preg_match('/(Linien)(.*?)(:)/', $trackString, $matches);
-        if(!empty($matches[2])){
+        if (!empty($matches[2])) {
             return trim($matches[2]);
         }
     }

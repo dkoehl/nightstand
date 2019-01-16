@@ -11,10 +11,16 @@ This is a project for raspberry pi with 7" touch display.
 
 ## Weather Data
 * Works only with munich local weather
-* Weather data from: `http://query.yahooapis.com/`
+* Weather data from: `http://openweathermap.org/`
+* `You need to get an APIKey`
 
 ## Frontend Framework
-* Frontend is build fully responsive with twitters bootstrap 3 framework
+* Frontend is build fully responsive with twitters bootstrap 4.* framework
+* jQuery 3.*
+* Fontawesome
+
+## Frontend Build
+* Gulp
 
 
 ## Contact
@@ -22,22 +28,25 @@ for more infos contact me: `@pmnewmedia`
 
 
 ## Frontend Views
-### Default 
-This is the default view on your raspberry pi
-![Default-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/default_view.png)
+### Default
+![Default-View](assets/_screenshots_/Screen1_latest.png)
+* This is the default view on your raspberry pi
 
 
-### Sbahn Data- Message 
-This view is if there is some trouble on the munich sbahn (nealy every day^^)
-![SbahnMessage-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/message_view.png)
+### Sbahn Data- Message
+![SbahnMessage-View](assets/_screenshots_/Screen4_latest.png)
+* This view is if there is some trouble on the munich sbahn (nealy every day^^)
 
-### Weather Image 
-Some local weather images, for an overview of the actual weather situation. The images are taken from official and free webcams
-![WeatherImage-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/weatherimage_view.png)
 
-### Weather values
-The local weather in numbers and graphs
-![WeatherValue-View](https://github.com/dkoehl/nightstand/blob/master/_screenshots_/weathervalue_view.png)
+### Weather Image
+![WeatherImage-View](assets/_screenshots_/Screen2_latest.png)
+* Some local weather images, for an overview of the actual weather situation. The images are taken from official and free webcams
+
+
+### Reatime Traindata values
+![Realtimedata-View](assets/_screenshots_/Screen3_latest.png)
+* Realtime data from selected stations
+
 
 
 ## Requirements

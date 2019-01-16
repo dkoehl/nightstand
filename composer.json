@@ -1,0 +1,15 @@
+{
+  "require": {
+    "guzzlehttp/guzzle": "^6.3",
+    "ext-dom": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpmd/phpmd": "^2.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pixelmatic\\": "src/"
+    }
+  }
+}

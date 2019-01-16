@@ -1,0 +1,38 @@
+{
+  "name": "nightstand",
+  "version": "2.0.0",
+  "description": "raspberry pi app",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@192.168.1.140:2224/denniskoehl/nightstand.git"
+  },
+  "author": "Dennis Köhl",
+  "license": "ISC",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.6.3",
+    "browser-sync": "^2.26.3",
+    "del": "^2.0.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "latest",
+    "gulp-concat": "latest",
+    "gulp-csso": "latest",
+    "gulp-font": "latest",
+    "gulp-htmlmin": "latest",
+    "gulp-minify-css": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "latest",
+    "gulp-uglify": "latest",
+    "popper": "latest",
+    "run-sequence": "latest"
+  },
+  "dependencies": {
+    "bootstrap": "4.*",
+    "jquery": "3.*",
+    "natives": "^1.1.6",
+    "popper.js": "^1.14.4"
+  }
+}

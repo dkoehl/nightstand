@@ -1,0 +1,234 @@
+html,body,.container-fluid{
+    background-color:#333;
+    height:100%;
+    width:auto;
+    padding-botto:30px;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+html, body, a:link{
+    color:#fff;
+    background-attachment: fixed;
+    background-size: cover;
+    font-variant-numeric: tabular-nums lining-nums;
+}
+
+body{
+    display:none;
+}
+
+p {
+    margin: 0 0 0;
+    font-size:10px;
+}
+/*div{*/
+    /*border:1px solid red;*/
+/*}*/
+
+i {
+    font-family: weather;
+    font-size: 7em;
+    display: block;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: none;
+    line-height: 65%;
+    text-align: right;
+    padding-top: 20px;
+    text-align: center;
+}
+
+div, a, button{
+    border-radius:0px !important;
+    box-shadow: none !important;
+}
+.inneritem{
+    font-size:12px;
+}
+
+.container-fluid{
+    position:relative;
+    background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.5) 0%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
+}
+
+
+#alarm{
+    /*margin: 0px;*/
+    /*padding: 0px;*/
+}
+.alarmclock{
+    padding:10px;
+    text-align:left;
+}
+#uhrzeit{
+    font-size: 5.8rem;
+    text-align: center;
+    line-height: 5.3rem;
+}
+#datum{
+    font-size: x-large;
+    text-align: center;
+}
+#salutation{
+    font-size: x-large;
+    text-align: center !important;
+}
+
+#weather{
+    margin: 0px;
+    padding: 0px;
+}
+
+#feed{
+    margin: 0px;
+    padding: 0px;
+}
+#temp{
+    font-size:3rem;
+    text-align:right;
+}
+#currently{
+    text-align:right;
+}
+#salutation > p{
+    hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    font-size:0.8rem;
+}
+
+
+
+.btn-primary,
+.list-group-item,
+.collapsed{
+    background:rgba(255,255,255,0.3);
+    border:none;
+    color:#fff;
+}
+a.list-group-item:focus, a.list-group-item:hover, button.list-group-item:focus, button.list-group-item:hover,.btn-primary.focus, .btn-primary:focus{
+    background:rgba(255,255,255,0.3) !important;;
+    border:none !important;
+    color:#fff !important;;
+}
+a.list-group-item > img{
+    height:20px;
+}
+
+.list-group-item{
+    /*background:none;*/
+    /*border:none;*/
+    padding:5px;
+    font-weight:normal;
+
+}
+.list-group{
+    margin-bottom:10px;
+}
+a.list-group-item, button.list-group-item{
+    color:#fff;
+    font-weight:normal;
+}
+a.list-group-item .list-group-item-heading, button.list-group-item .list-group-item-heading{
+    color:#fff;
+    font-size:100%;
+    font-weight:normal;
+    line-height: 1.5em;
+}
+
+
+.feedcontent{
+    font-size:11px;
+    hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    margin-bottom: 100px;
+}
+#actionbuttons{
+    text-align: right;
+}
+#refreshButton, #launchwebcamimages, #launchweather{
+    margin-bottom:5px;
+    max-width:40px;
+}
+
+#weathericon > center > img{
+    width: 130% !important;
+}
+video#bgVideo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: 105%;
+    /*z-index: -100;*/
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background-size: cover;
+}
+/*Mobiles*/
+@media only screen
+and (max-device-width : 600px) {
+    #actionbuttons{
+        position:fixed;
+        bottom:0px;
+        left:0px;
+        float:left;
+        width:100%;
+        background-color:rgba(255,255,255,0.5);
+        padding:5px;
+        z-index:9;
+    }
+    #uhrzeit{
+        font-size: 2.3rem;
+        text-align: center;
+        line-height: 3.9rem;
+    }
+    #datum{
+        font-size: 0.7rem;
+        text-align: center;
+    }
+    #temp {
+        font-size: 1.5rem;
+        text-align: center !important;
+        line-height: 1.5em;
+        font-weight:bold;
+    }
+    #currently{
+        padding-top:10px;
+        font-size: 0.8rem;
+        display: block;
+        font-weight: normal;
+        font-style: normal;
+        text-transform: none;
+        line-height: 100%;
+        text-align: center !important;
+        hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        -ms-hyphens: auto;
+    }
+    #weathericon > center > img{
+        width: 230% !important;
+    }
+
+    #actionbuttons{
+        text-align: left;
+        padding:7px;
+        margin-right:7px;
+    }
+}
+
+#weatherModal{
+    color: #999999;
+}

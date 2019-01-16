@@ -1,3 +1,13 @@
 /.idea/*
 .idea/*
-.idea/vcs.xml
+/vendor/
+/node_modules/
+/assets/css/style.min.css
+/assets/js/bundle.min.js
+/.idea
+/assets/images/newBackground.jpg
+/assets/webfonts/fa-regular-400.woff2
+/assets/webfonts/fa-solid-900.woff2
+!.gitkeep
+/composer.lock
+/package-lock.json

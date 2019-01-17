@@ -22,9 +22,9 @@ p {
     margin: 0 0 0;
     font-size:10px;
 }
-/*div{*/
-    /*border:1px solid red;*/
-/*}*/
+div{
+    border:1px solid red;
+}
 
 i {
     font-family: weather;
@@ -65,7 +65,7 @@ div, a, button{
     text-align:left;
 }
 #uhrzeit{
-    font-size: 5.8rem;
+    font-size: 5.3rem;
     text-align: center;
     line-height: 5.3rem;
 }
@@ -90,6 +90,7 @@ div, a, button{
 #temp{
     font-size:3rem;
     text-align:right;
+    white-space: nowrap;
 }
 #currently{
     text-align:right;
@@ -158,8 +159,9 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
     max-width:40px;
 }
 
-#weathericon > center > img{
-    width: 130% !important;
+#weathericon{
+    width: 100px !important;
+    margin-bottom:-10px;
 }
 video#bgVideo {
     position: fixed;
@@ -218,8 +220,11 @@ and (max-device-width : 600px) {
         -webkit-hyphens: auto;
         -ms-hyphens: auto;
     }
-    #weathericon > center > img{
-        width: 230% !important;
+    #weathericon {
+        width: 100px!important;
+        line-height: 30px;
+        margin-bottom: -30px;
+        margin-top: -20px;
     }
 
     #actionbuttons{

@@ -22,9 +22,9 @@ p {
     margin: 0 0 0;
     font-size:10px;
 }
-div{
-    border:1px solid red;
-}
+/*div{*/
+    /*border:1px solid red;*/
+/*}*/
 
 i {
     font-family: weather;

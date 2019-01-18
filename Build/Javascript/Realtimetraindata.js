@@ -6,7 +6,7 @@ $(document).ready(function () {
     $('#launchweather').click(function () {
         $.ajax({
             type: "GET",
-            url: "src/Realtimedata.php",
+            url: "src/RealTimeData.php",
             async: true,
             cache: false,
             success: function (data) {

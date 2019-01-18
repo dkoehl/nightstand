@@ -9,16 +9,17 @@
 namespace Pixelmatic;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 require '../vendor/autoload.php';
 
 /**
- * Class Realtimedata
+ * Class RealTimeData
  * @package Pixelmatic
  */
-class Realtimedata
+class RealTimeData
 {
-    const REALTIMEDATALINKS = [
+    protected static $realtimedataUrls = [
         'http://efa.mvv-muenchen.de/xhr_departures?locationServerActive=1&stateless=1&type_dm=any&name_dm=1002126&useAllStops=1&useRealtime=1&limit=5&mode=direct&zope_command=enquiry%3Adepartures&compact=1&includedMeans=1&inclMOT_3=1&inclMOT_4=1&inclMOT_5=1&inclMOT_6=1&inclMOT_7=1&inclMOT_9=1&inclMOT_10=1&coordOutputFormat=MRCV&_=1547040115710',
         'http://efa.mvv-muenchen.de/xhr_departures?locationServerActive=1&stateless=1&type_dm=any&name_dm=de%3A09162%3A1250&useAllStops=1&useRealtime=1&limit=5&mode=direct&zope_command=enquiry%3Adepartures&compact=1&includedMeans=1&inclMOT_2=1&coordOutputFormat=MRCV&_=1547189583059',
         'http://efa.mvv-muenchen.de/xhr_departures?locationServerActive=1&stateless=1&type_dm=any&name_dm=de%3A09162%3A800&useAllStops=1&useRealtime=1&limit=5&mode=direct&zope_command=enquiry%3Adepartures&compact=1&includedMeans=1&inclMOT_1=1&coordOutputFormat=MRCV&_=1547189583060'
@@ -26,55 +27,62 @@ class Realtimedata
 
     /**
      * Realtimedata constructor.
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function __construct()
+    public function __construct()
     {
-        foreach (self::REALTIMEDATALINKS as $link) {
-            $rawRealtimeData = self::getRealtimeData($link);
-            echo self::getOnlyTableData($rawRealtimeData);
+        foreach (self::$realtimedataUrls as $requestURL) {
+            echo self::getRealtimeData($requestURL);
         }
     }
 
     /**
      * @param $requestURL
-     * @return \Psr\Http\Message\StreamInterface
+     * @return mixed|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getRealtimeData($requestURL)
     {
         $client = new Client();
-        $response = $client->request('GET', $requestURL);
-        if ($response->getStatusCode() == 200) {
-            return $response->getBody();
+        try{
+            $response = $client->request('GET', $requestURL);
+        } catch (ClientException $e){
+            var_dump($e->getMessage());
+            return 'ERROR, Check Links und Request URLs';
+        }
+        if ($response->getStatusCode() === 200) {
+            return self::showOnlyTableData($response->getBody());
         }
     }
 
     /**
+     * replacement pattern for table html
      * @param $rawResponseData
      * @return mixed
      */
-    public static function getOnlyTableData($rawResponseData)
+    public static function showOnlyTableData($rawResponseData)
     {
         preg_match_all('/(<table)+(.*?)(<\/table>)/is', $rawResponseData, $matches);
-        $tableData = '<div class="table-responsive">' . $matches[0][0] . '</div>';
-        $tableData = preg_replace('/<img[^>]+\>/i', '', $tableData);
-        return str_replace(
-            [
-                'style="clear:both;"',
-                'visuallyhidden',
-                'Live',
-                'Abfahrt',
-            ],
-            [
-                'class="table"',
-                'thead-light',
-                'Plan',
-                'Live',
-            ],
-            $tableData
-        );
+        if(isset($matches[0][0])){
+            $tableData = '<div class="table-responsive">' . $matches[0][0] . '</div>';
+            $tableData = preg_replace('/<img[^>]+\>/i', '', $tableData);
+            // replacement pattern for frontend styling
+            return str_replace(
+                [
+                    'style="clear:both;"',
+                    'visuallyhidden',
+                    'Live',
+                    'Abfahrt',
+                ],
+                [
+                    'class="table"',
+                    'thead-light',
+                    'Plan',
+                    'Live',
+                ],
+                $tableData
+            );
+        }
+
     }
 }
-
-new Realtimedata();
+new RealTimeData();

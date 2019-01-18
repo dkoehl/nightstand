@@ -8,7 +8,7 @@ $(document).ready(function () {
     function getSbahnReport() {
         var feedback = $.ajax({
             type: "GET",
-            url: "src/Sbahnticker.php",
+            url: "src/SbahnTicker.php",
             async: true,
             cache: false,
             dataType: 'json',

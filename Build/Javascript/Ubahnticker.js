@@ -8,7 +8,7 @@ $(document).ready(function () {
     function getMvgReport() {
         var feedback = $.ajax({
             type: "GET",
-            url: "src/Ubahnticker.php",
+            url: "src/UbahnTicker.php",
             async: true,
             cache: false,
             success: function (data) {

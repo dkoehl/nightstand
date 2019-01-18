@@ -33,7 +33,7 @@ class MobileBackgroundImage
      */
     public static function removeOldMobileBackgroundImage()
     {
-        if(is_file(self::$localMobileBackgroundImageWithPath)){
+        if (is_file(self::$localMobileBackgroundImageWithPath)) {
             unlink(self::$localMobileBackgroundImageWithPath);
         }
     }

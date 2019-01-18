@@ -1,6 +1,9 @@
 <?php
 
-namespace Pixelmatic\Sbahnticker;
+namespace Pixelmatic;
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 require '../vendor/autoload.php';
 
@@ -15,24 +18,32 @@ class SbahnTicker
     const DATATICKER = 'https://img.srv2.de/customer/sbahnMuenchen/newsticker/newsticker.html';
 
     /**
-     * @return string with json data
+     * @return false|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getSbahnData()
     {
-        $rawSbahnHtml = self::getSbahnDataFromWebsite();
+        $rawSbahnHtml = self::parseSbahnWebsite();
         $sbahnDataArray = self::makeHtmlDataToJson($rawSbahnHtml);
         return json_encode($sbahnDataArray, JSON_UNESCAPED_UNICODE);
     }
 
     /**
-     * Gets data from external website
+     *  Gets data from external website
      *
-     * @return String with html structure
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function getSbahnDataFromWebsite()
+    public static function parseSbahnWebsite()
     {
-        $htmlData = file_get_contents(self::DATATICKER);
-        preg_match_all('/(<body)+(.*?)(<\/body>)/is', $htmlData, $matches);
+        $client = new Client();
+        try {
+            $response = $client->request('GET', self::DATATICKER);
+        } catch (ClientException $e) {
+            var_dump($e->getCode());
+            return false;
+        }
+        preg_match_all('/(<body)+(.*?)(<\/body>)/is', $response->getBody(), $matches);
         return $matches[0][0];
     }
 
@@ -57,18 +68,19 @@ class SbahnTicker
                 'Title' => 'Keine Meldungen vorhanden'
             ];
         }
-
+        // get all notifications no matter archived or not
         $notifications = [];
         foreach ($sbahnXpath->query('//div[@class="notification"]') as $notification) {
             $notifications[] = $notification->nodeValue;
         }
-
+        // get all tracks no matter archived or not
         $notificationTracks = [];
         foreach ($sbahnXpath->query('//div[@class="tracks"]') as $track) {
             $notificationTracks[] = $track->nodeValue;
         }
         $notificationsArray = [];
-        for ($i = 0; $i < count($notificationTracks); $i++) {
+        $notifcicationCounts = count($notificationTracks);
+        for ($i = 0; $i < $notifcicationCounts; $i++) {
             $notificationsArray[md5(self::sanitizeValues($notificationTracks[$i]))][] = [
                 'Title' => self::sanitizeValues($notificationHeadlines[$i]),
                 'Headline' => @trim(explode('Aktualisierung', self::sanitizeValues($notificationHeadlines[$i]))[1]),

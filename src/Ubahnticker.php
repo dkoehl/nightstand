@@ -1,25 +1,38 @@
 <?php
 
-namespace Pixelmatic\Ticker;
+namespace Pixelmatic;
+
+require '../vendor/autoload.php';
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * Class MvgTicker
  *
  * @package Pixelmatic\Ticker
  */
-class MvgTicker
+class UbahnTicker
 {
-    const UBAHNDATAURL = 'https://ticker.mvg.de/';
-
+    protected static $tickerUrl = 'https://ticker.mvg.de/';
 
     /**
      * Gets XML Data from external API
-     * @return array
+     *
+     * @return false|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getUbahnData()
     {
-        $mvgreportpage = file_get_contents(self::UBAHNDATAURL);
-        $mvgXmlDoc = new \SimpleXMLElement($mvgreportpage);
+        $client = new Client();
+        $response = '';
+        try{
+            $response = $client->request('GET', self::$tickerUrl);
+        }catch (ClientException $e){
+            var_dump($e->getMessage());
+        }
+        $mvgXmlDoc = new \SimpleXMLElement($response->getBody());
+        $mvgDataArray = [];
         foreach ($mvgXmlDoc->channel->item as $item) {
             $mvgDataArray[] = [
                 'title' => strip_tags(trim($item->title)),
@@ -58,5 +71,5 @@ class MvgTicker
 }
 
 header('Content-Type: application/json; charset=utf-8');
-$mvgTickerData = new mvgTicker();
+$mvgTickerData = new UbahnTicker();
 echo $mvgTickerData::getUbahnData();

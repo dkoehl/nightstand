@@ -2,7 +2,10 @@
   "require": {
     "guzzlehttp/guzzle": "^6.3",
     "ext-dom": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-simplexml" : "*",
+    "ext-mbstring" : "*",
+    "ext-libxml" : "*"
   },
   "require-dev": {
     "phpmd/phpmd": "^2.6"

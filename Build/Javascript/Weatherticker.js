@@ -6,7 +6,7 @@ $(document).ready(function () {
     function getWeatherdata() {
         var feedback = $.ajax({
             type: "GET",
-            url: "src/Weatherticker.php",
+            url: "src/WeatherTicker.php",
             async: true,
             cache: false,
             dataType: 'json',

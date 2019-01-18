@@ -1,7 +1,8 @@
 <?php /** @noinspection PhpCSValidationInspection */
 
-namespace Pixelmatic\Weather;
+namespace Pixelmatic;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
 require '../vendor/autoload.php';
@@ -15,15 +16,16 @@ require '../vendor/autoload.php';
  */
 class WeatherTicker
 {
-    private static $apikey = '';
-    private static $cityid = '';
+    private static $apikey = '8c144c679527ee3fa414a592246222ec';
+    private static $cityid = '6556307';
+
     /**
      * @return false|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getWeatherData()
     {
-        $responseData = self::getDataFromApi();
+        $responseData = self::requestApi();
         return json_encode(self::sanitizeWeatherResponse($responseData), JSON_UNESCAPED_UNICODE);
     }
 
@@ -31,15 +33,15 @@ class WeatherTicker
      * @return \Psr\Http\Message\StreamInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function getDataFromApi()
+    public static function requestApi()
     {
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
+        $response = '';
         try {
             $response = $client->request('GET',
-                'https://api.openweathermap.org/data/2.5/weather?id='.self::$cityid.'&appid='.self::$apikey.'&lang=de&units=metric');
+                'https://api.openweathermap.org/data/2.5/weather?id=' . self::$cityid . '&appid=' . self::$apikey . '&lang=de&units=metric');
         } catch (ClientException $e) {
-            echo $e->getCode();
-
+            echo $e->getMessage();
         }
         return $response->getBody();
     }

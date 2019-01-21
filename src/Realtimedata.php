@@ -26,27 +26,24 @@ class RealTimeData
     ];
 
     /**
-     * Realtimedata constructor.
+     * @return string
      */
-    public function __construct()
+    public static function getRealTimeData(): string
     {
+        $realTimeData = '';
         foreach (self::$realtimedataUrls as $requestURL) {
-            echo self::getRealtimeData($requestURL);
+            $realTimeData .= self::requestDataFromSource($requestURL);
         }
+        return $realTimeData;
     }
 
-    /**
-     * @param $requestURL
-     * @return mixed|string
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public static function getRealtimeData($requestURL)
+    private static function requestDataFromSource(string $requestURL)
     {
         $client = new Client();
-        try{
+        try {
             $response = $client->request('GET', $requestURL);
-        } catch (ClientException $e){
-            var_dump($e->getMessage());
+        } catch (ClientException $e) {
+            echo $e->getMessage() . PHP_EOL;
             return 'ERROR, Check Links und Request URLs';
         }
         if ($response->getStatusCode() === 200) {
@@ -59,10 +56,10 @@ class RealTimeData
      * @param $rawResponseData
      * @return mixed
      */
-    public static function showOnlyTableData($rawResponseData)
+    public static function showOnlyTableData(string $rawResponseData): string
     {
         preg_match_all('/(<table)+(.*?)(<\/table>)/is', $rawResponseData, $matches);
-        if(isset($matches[0][0])){
+        if (isset($matches[0][0])) {
             $tableData = '<div class="table-responsive">' . $matches[0][0] . '</div>';
             $tableData = preg_replace('/<img[^>]+\>/i', '', $tableData);
             // replacement pattern for frontend styling
@@ -82,7 +79,8 @@ class RealTimeData
                 $tableData
             );
         }
-
     }
 }
-new RealTimeData();
+
+$traindata = new RealTimeData();
+echo $traindata::getRealTimeData();

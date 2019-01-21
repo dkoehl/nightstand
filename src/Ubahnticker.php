@@ -6,6 +6,7 @@ require '../vendor/autoload.php';
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Symfony\Component\Debug\Debug;
 
 /**
  * Class MvgTicker
@@ -14,6 +15,9 @@ use GuzzleHttp\Exception\ClientException;
  */
 class UbahnTicker
 {
+    /**
+     * @var string
+     */
     protected static $tickerUrl = 'https://ticker.mvg.de/';
 
     /**
@@ -22,14 +26,14 @@ class UbahnTicker
      * @return false|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function getUbahnData()
+    public static function getUbahnData(): string
     {
         $client = new Client();
-        $response = '';
-        try{
+        try {
             $response = $client->request('GET', self::$tickerUrl);
-        }catch (ClientException $e){
-            var_dump($e->getMessage());
+        } catch (ClientException $e) {
+            echo $e->getMessage() . PHP_EOL;
+            return 'ERROR, Check Links und Request URLs';
         }
         $mvgXmlDoc = new \SimpleXMLElement($response->getBody());
         $mvgDataArray = [];
@@ -49,7 +53,7 @@ class UbahnTicker
      * @param $bodytext
      * @return string
      */
-    public static function trimBodytext($bodytext)
+    public static function trimBodytext(string $bodytext): string
     {
         $newBodyText = explode('Für Detailinformationen folgen Sie bitte dem Link.', $bodytext);
         return strip_tags(trim($newBodyText[0]));
@@ -58,15 +62,16 @@ class UbahnTicker
     /**
      * Separates the Tracks for further stuff
      *
-     * @param $trackString
-     * @return array
+     * @param string $trackString
+     * @return string
      */
-    public static function getTracks($trackString)
+    public static function getTracks(string $trackString): string
     {
         preg_match('/(Linien)(.*?)(:)/', $trackString, $matches);
         if (!empty($matches[2])) {
             return trim($matches[2]);
         }
+        return '';
     }
 }
 

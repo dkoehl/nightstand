@@ -14,14 +14,13 @@ require '../vendor/autoload.php';
  */
 class SbahnTicker
 {
-    public $rawSbahnHtml = '';
-    const DATATICKER = 'https://img.srv2.de/customer/sbahnMuenchen/newsticker/newsticker.html';
+    protected static $serviceUrl = 'https://img.srv2.de/customer/sbahnMuenchen/newsticker/newsticker.html';
 
     /**
-     * @return false|string
+     * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function getSbahnData()
+    public static function getSbahnData():string
     {
         $rawSbahnHtml = self::parseSbahnWebsite();
         $sbahnDataArray = self::makeHtmlDataToJson($rawSbahnHtml);
@@ -34,24 +33,26 @@ class SbahnTicker
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function parseSbahnWebsite()
+    public static function parseSbahnWebsite():string
     {
         $client = new Client();
         try {
-            $response = $client->request('GET', self::DATATICKER);
+            $response = $client->request('GET', self::$serviceUrl);
         } catch (ClientException $e) {
-            var_dump($e->getCode());
-            return false;
+            echo $e->getMessage() . PHP_EOL;
+            return 'ERROR, Check Links und Request URLs';
         }
-        preg_match_all('/(<body)+(.*?)(<\/body>)/is', $response->getBody(), $matches);
-        return $matches[0][0];
+        if ($response->getStatusCode() === 200) {
+            preg_match_all('/(<body)+(.*?)(<\/body>)/is', $response->getBody(), $matches);
+            return $matches[0][0];
+        }
     }
 
     /**
-     * @param $rawSbahnHtml String with data
-     * @return array with data
+     * @param string $rawSbahnHtml
+     * @return array
      */
-    public static function makeHtmlDataToJson($rawSbahnHtml)
+    public static function makeHtmlDataToJson(string $rawSbahnHtml):array
     {
         $sbahn = new \DOMDocument();
         libxml_use_internal_errors(true);
@@ -97,7 +98,7 @@ class SbahnTicker
      * @param $rawSting String
      * @return string
      */
-    public static function sanitizeValues($rawSting)
+    public static function sanitizeValues(string $rawSting):string
     {
         return trim(
             str_replace(

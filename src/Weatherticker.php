@@ -4,6 +4,7 @@ namespace Pixelmatic;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Psr\Http\Message\StreamInterface;
 
 require '../vendor/autoload.php';
 
@@ -16,7 +17,13 @@ require '../vendor/autoload.php';
  */
 class WeatherTicker
 {
+    /**
+     * @var string
+     */
     private static $apikey = '8c144c679527ee3fa414a592246222ec';
+    /**
+     * @var string
+     */
     private static $cityid = '6556307';
 
     /**
@@ -33,7 +40,7 @@ class WeatherTicker
      * @return \Psr\Http\Message\StreamInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function requestApi()
+    public static function requestApi(): StreamInterface
     {
         $client = new Client();
         $response = '';
@@ -50,7 +57,7 @@ class WeatherTicker
      * @param $responseJsonData
      * @return array
      */
-    private static function sanitizeWeatherResponse($responseJsonData)
+    private static function sanitizeWeatherResponse($responseJsonData):array
     {
         $response = json_decode($responseJsonData);
         return [

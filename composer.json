@@ -3,16 +3,22 @@
     "guzzlehttp/guzzle": "^6.3",
     "ext-dom": "*",
     "ext-json": "*",
-    "ext-simplexml" : "*",
-    "ext-mbstring" : "*",
-    "ext-libxml" : "*"
+    "ext-simplexml": "*",
+    "ext-mbstring": "*",
+    "ext-libxml": "*"
   },
   "require-dev": {
-    "phpmd/phpmd": "^2.6"
+    "phpmd/phpmd": "^2.6",
+    "friendsofphp/php-cs-fixer": "^2.12"
   },
   "autoload": {
     "psr-4": {
       "Pixelmatic\\": "src/"
     }
+  },
+  "scripts": {
+    "cs-fix": [
+      "php-cs-fix fix src --rules=@PSR2"
+    ]
   }
 }

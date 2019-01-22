@@ -20,11 +20,11 @@ class WeatherTicker
     /**
      * @var string
      */
-    private static $apikey = '8c144c679527ee3fa414a592246222ec';
+    private static $apikey = '';
     /**
      * @var string
      */
-    private static $cityid = '6556307';
+    private static $cityid = '';
 
     /**
      * @return false|string

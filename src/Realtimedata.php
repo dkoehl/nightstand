@@ -33,7 +33,7 @@ class RealTimeData
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function getRealTimeData(): string
+    public static function getRealTimeData()
     {
         $realTimeData = '';
         foreach (self::$realtimedataUrls as $requestURL) {
@@ -47,7 +47,7 @@ class RealTimeData
      * @return mixed|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    private static function requestDataFromSource(string $requestURL)
+    private static function requestDataFromSource($requestURL)
     {
         $client = new Client();
         try {
@@ -66,7 +66,7 @@ class RealTimeData
      * @param $rawResponseData
      * @return mixed
      */
-    public static function showOnlyTableData(string $rawResponseData): string
+    public static function showOnlyTableData($rawResponseData)
     {
         preg_match_all('/(<table)+(.*?)(<\/table>)/is', $rawResponseData, $matches);
         if (isset($matches[0][0])) {

@@ -48,7 +48,7 @@ class WeatherTicker
      * @return StreamInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected static function requestData(): StreamInterface
+    protected static function requestData()
     {
         $response = '';
         $client = new Client();
@@ -64,7 +64,7 @@ class WeatherTicker
      * @return false|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function getWeatherData(): string
+    public static function getWeatherData()
     {
         $responseBody = self::requestData();
         return json_encode(self::sanitizeWeatherResponse($responseBody), JSON_UNESCAPED_UNICODE);
@@ -74,7 +74,7 @@ class WeatherTicker
      * @param $responseJsonData
      * @return array
      */
-    private static function sanitizeWeatherResponse($responseBody): array
+    private static function sanitizeWeatherResponse($responseBody)
     {
         $response = json_decode($responseBody);
         return [

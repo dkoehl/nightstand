@@ -28,7 +28,7 @@ class MobileBackgroundImage
     }
 
 
-    public static function getMobileBackgroundImage(): void
+    public static function getMobileBackgroundImage()
     {
         self::removeOldMobileBackgroundImage();
         self::getMobileBackgroundImageFromSource();
@@ -38,7 +38,7 @@ class MobileBackgroundImage
     /**
      * Removes old mobile background image
      */
-    public static function removeOldMobileBackgroundImage(): void
+    public static function removeOldMobileBackgroundImage()
     {
         if (is_file(self::$localMobileBackgroundImageWithPath)) {
             unlink(self::$localMobileBackgroundImageWithPath);
@@ -48,7 +48,7 @@ class MobileBackgroundImage
     /**
      *  Requests background image form external source
      */
-    public static function getMobileBackgroundImageFromSource(): void
+    public static function getMobileBackgroundImageFromSource()
     {
         $timeStamp = time();
         $newTimeStamp = mktime(
@@ -94,7 +94,7 @@ class MobileBackgroundImage
     /**
      * @return bool
      */
-    public static function saveMobileBackgroundImage(): bool
+    public static function saveMobileBackgroundImage()
     {
         if (!empty(self::$mobileBackgroundImage)) {
             @file_put_contents(self::$localMobileBackgroundImageWithPath, self::$mobileBackgroundImage);

@@ -20,7 +20,7 @@ class SbahnTicker
      * @return string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function getSbahnData():string
+    public static function getSbahnData()
     {
         $rawSbahnHtml = self::parseSbahnWebsite();
         $sbahnDataArray = self::makeHtmlDataToJson($rawSbahnHtml);
@@ -33,7 +33,7 @@ class SbahnTicker
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function parseSbahnWebsite():string
+    public static function parseSbahnWebsite()
     {
         $client = new Client();
         try {
@@ -52,7 +52,7 @@ class SbahnTicker
      * @param string $rawSbahnHtml
      * @return array
      */
-    public static function makeHtmlDataToJson(string $rawSbahnHtml):array
+    public static function makeHtmlDataToJson($rawSbahnHtml)
     {
         $sbahn = new \DOMDocument();
         libxml_use_internal_errors(true);
@@ -98,7 +98,7 @@ class SbahnTicker
      * @param $rawSting String
      * @return string
      */
-    public static function sanitizeValues(string $rawSting):string
+    public static function sanitizeValues($rawSting)
     {
         return trim(
             str_replace(

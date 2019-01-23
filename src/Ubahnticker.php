@@ -25,7 +25,7 @@ class UbahnTicker
      * @return StreamInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected static function requestData(): StreamInterface
+    protected static function requestData()
     {
         $client = new Client();
         $response = '';
@@ -42,7 +42,7 @@ class UbahnTicker
      *
      * @return array
      */
-    protected static function parseHtmlToXml($responseBody): array
+    protected static function parseHtmlToXml($responseBody)
     {
         $mvgXmlDoc = new \SimpleXMLElement($responseBody);
         $arrayItems = [];
@@ -63,7 +63,7 @@ class UbahnTicker
      * @return false|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function getUbahnData(): string
+    public static function getUbahnData()
     {
         $responseBody = self::requestData();
         return json_encode(self::parseHtmlToXml($responseBody), JSON_UNESCAPED_UNICODE);
@@ -75,7 +75,7 @@ class UbahnTicker
      * @param string $bodytext
      * @return string
      */
-    public static function trimBodytext(string $bodytext): string
+    public static function trimBodytext($bodytext)
     {
         $newBodyText = explode('Für Detailinformationen folgen Sie bitte dem Link.', $bodytext);
         return strip_tags(trim($newBodyText[0]));
@@ -87,7 +87,7 @@ class UbahnTicker
      * @param string $trackString
      * @return string
      */
-    public static function getTracks(string $trackString): string
+    public static function getTracks($trackString)
     {
         preg_match('/(Linien)(.*?)(:)/', $trackString, $matches);
         if (!empty($matches[2])) {

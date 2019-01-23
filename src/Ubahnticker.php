@@ -2,11 +2,11 @@
 
 namespace Pixelmatic;
 
-require '../vendor/autoload.php';
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Symfony\Component\Debug\Debug;
+use Psr\Http\Message\StreamInterface;
+
+require '../vendor/autoload.php';
 
 /**
  * Class MvgTicker
@@ -18,7 +18,44 @@ class UbahnTicker
     /**
      * @var string
      */
-    protected static $tickerUrl = 'https://ticker.mvg.de/';
+    protected static $api_url = 'https://ticker.mvg.de/';
+
+
+    /**
+     * @return StreamInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    protected static function requestData(): StreamInterface
+    {
+        $client = new Client();
+        $response = '';
+        try {
+            $response = $client->request('GET', self::$api_url);
+        } catch (ClientException $e) {
+            echo $e->getMessage() . PHP_EOL;
+        }
+        return $response->getBody();
+    }
+
+    /**
+     * @param $responseBody
+     *
+     * @return array
+     */
+    protected static function parseHtmlToXml($responseBody): array
+    {
+        $mvgXmlDoc = new \SimpleXMLElement($responseBody);
+        $arrayItems = [];
+        foreach ($mvgXmlDoc->channel->item as $item) {
+            $arrayItems[] = [
+                'title' => strip_tags(trim($item->title)),
+                'description' => self::trimBodytext($item->description),
+                'pubdate' => strip_tags(trim($item->pubDate)),
+                'tracks' => self::getTracks(trim($item->title))
+            ];
+        }
+        return $arrayItems;
+    }
 
     /**
      * Gets XML Data from external API
@@ -28,29 +65,14 @@ class UbahnTicker
      */
     public static function getUbahnData(): string
     {
-        $client = new Client();
-        try {
-            $response = $client->request('GET', self::$tickerUrl);
-        } catch (ClientException $e) {
-            echo $e->getMessage() . PHP_EOL;
-            return 'ERROR, Check Links und Request URLs';
-        }
-        $mvgXmlDoc = new \SimpleXMLElement($response->getBody());
-        $mvgDataArray = [];
-        foreach ($mvgXmlDoc->channel->item as $item) {
-            $mvgDataArray[] = [
-                'title' => strip_tags(trim($item->title)),
-                'description' => self::trimBodytext($item->description),
-                'pubdate' => strip_tags(trim($item->pubDate)),
-                'tracks' => self::getTracks(trim($item->title))
-            ];
-        }
-        return json_encode($mvgDataArray, JSON_UNESCAPED_UNICODE);
+        $responseBody = self::requestData();
+        return json_encode(self::parseHtmlToXml($responseBody), JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * Cleans bodytext from unneeded chars
-     * @param $bodytext
+     *
+     * @param string $bodytext
      * @return string
      */
     public static function trimBodytext(string $bodytext): string
@@ -60,7 +82,7 @@ class UbahnTicker
     }
 
     /**
-     * Separates the Tracks for further stuff
+     * separates the Tracks for further stuff
      *
      * @param string $trackString
      * @return string

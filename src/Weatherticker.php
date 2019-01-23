@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpCSValidationInspection */
+<?php
 
 namespace Pixelmatic;
 
@@ -20,46 +20,63 @@ class WeatherTicker
     /**
      * @var string
      */
-    private static $apikey = '';
+    protected static $api_key = '';
     /**
      * @var string
      */
-    private static $cityid = '';
+    protected static $city_id = '';
+
+    /**
+     * @var string
+     */
+    protected static $api_url = '';
+
+
+    /**
+     * WeatherTicker constructor.
+     */
+    public function __construct()
+    {
+        self::$api_url = 'https://api.openweathermap.org/data/2.5/weather?id=';
+        self::$api_url .= self::$city_id;
+        self::$api_url .= '&appid=';
+        self::$api_url .= self::$api_key;
+        self::$api_url .= '&lang=de&units=metric';
+    }
+
+    /**
+     * @return StreamInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    protected static function requestData(): StreamInterface
+    {
+        $response = '';
+        $client = new Client();
+        try {
+            $response = $client->request('GET', self::$api_url);
+        } catch (ClientException $e) {
+            echo $e->getMessage() . PHP_EOL;
+        }
+        return $response->getBody();
+    }
 
     /**
      * @return false|string
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function getWeatherData()
+    public static function getWeatherData(): string
     {
-        $responseData = self::requestApi();
-        return json_encode(self::sanitizeWeatherResponse($responseData), JSON_UNESCAPED_UNICODE);
-    }
-
-    /**
-     * @return \Psr\Http\Message\StreamInterface
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public static function requestApi(): StreamInterface
-    {
-        $client = new Client();
-        $response = '';
-        try {
-            $response = $client->request('GET',
-                'https://api.openweathermap.org/data/2.5/weather?id=' . self::$cityid . '&appid=' . self::$apikey . '&lang=de&units=metric');
-        } catch (ClientException $e) {
-            echo $e->getMessage();
-        }
-        return $response->getBody();
+        $responseBody = self::requestData();
+        return json_encode(self::sanitizeWeatherResponse($responseBody), JSON_UNESCAPED_UNICODE);
     }
 
     /**
      * @param $responseJsonData
      * @return array
      */
-    private static function sanitizeWeatherResponse($responseJsonData):array
+    private static function sanitizeWeatherResponse($responseBody): array
     {
-        $response = json_decode($responseJsonData);
+        $response = json_decode($responseBody);
         return [
             'Wetter' => $response->weather[0]->description,
             'WetterIcon' => @$response->weather[0]->icon,

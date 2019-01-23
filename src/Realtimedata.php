@@ -19,14 +19,19 @@ require '../vendor/autoload.php';
  */
 class RealTimeData
 {
+    /**
+     * @var array
+     */
     protected static $realtimedataUrls = [
         'http://efa.mvv-muenchen.de/xhr_departures?locationServerActive=1&stateless=1&type_dm=any&name_dm=1002126&useAllStops=1&useRealtime=1&limit=5&mode=direct&zope_command=enquiry%3Adepartures&compact=1&includedMeans=1&inclMOT_3=1&inclMOT_4=1&inclMOT_5=1&inclMOT_6=1&inclMOT_7=1&inclMOT_9=1&inclMOT_10=1&coordOutputFormat=MRCV&_=1547040115710',
         'http://efa.mvv-muenchen.de/xhr_departures?locationServerActive=1&stateless=1&type_dm=any&name_dm=de%3A09162%3A1250&useAllStops=1&useRealtime=1&limit=5&mode=direct&zope_command=enquiry%3Adepartures&compact=1&includedMeans=1&inclMOT_2=1&coordOutputFormat=MRCV&_=1547189583059',
         'http://efa.mvv-muenchen.de/xhr_departures?locationServerActive=1&stateless=1&type_dm=any&name_dm=de%3A09162%3A800&useAllStops=1&useRealtime=1&limit=5&mode=direct&zope_command=enquiry%3Adepartures&compact=1&includedMeans=1&inclMOT_1=1&coordOutputFormat=MRCV&_=1547189583060'
     ];
 
+
     /**
      * @return string
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getRealTimeData(): string
     {
@@ -37,6 +42,11 @@ class RealTimeData
         return $realTimeData;
     }
 
+    /**
+     * @param string $requestURL
+     * @return mixed|string
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     private static function requestDataFromSource(string $requestURL)
     {
         $client = new Client();

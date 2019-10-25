@@ -20,8 +20,14 @@ This is a project for raspberry pi with 7" touch display.
 * Fontawesome
 
 ## Frontend Build
-* Gulp
+* Gulp 
 
+## Installation
+* Composer setup - ´´´composer install´´´
+
+
+## Requirements
+All you need is a Webserver(Apache, Nginx, ISS, etc..) with PHP5.6+
 
 ## Contact
 for more infos contact me: `@pmnewmedia`
@@ -49,5 +55,4 @@ for more infos contact me: `@pmnewmedia`
 
 
 
-## Requirements
-All you need is a Webserver(Apache, Nginx, ISS, etc..) with PHP5.6+
+

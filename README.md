@@ -22,8 +22,10 @@ This is a project for raspberry pi with 7" touch display.
 ## Frontend Build
 * Gulp 
 
-## Installation
-* Composer setup - ´´´composer install´´´
+## Installation`
+For installation run composer  (https://getcomposer.org)
+* Composer installation - run: `composer install` in your terminal
+* Gulp assets - run: `gulp build` in your terminal
 
 
 ## Requirements
